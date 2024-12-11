@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     //create api around crud
 
-
     //now implementing ProductService dependency to this controller.
     private ProductService productService;
     public ProductController(ProductService productService){
