@@ -18,13 +18,15 @@ public class ProductController {
     //making this route as post request here two methods
     //@RequestMapping(value = "/Products", method = RequestMethod.POST) this will map post request to /products routes
     @PostMapping("/products")
-    public void CreateProduct(Product product){
-
+    public Product CreateProduct(@RequestBody Product product){
+        Product p = productService.creatProduct(product.getId(), product.getTitle(), product.getDescription(), product.getPrice(), product.getImageUrl(), product.getCategory().getTitle());
+        return p;
     }
     //to get the product
     @GetMapping("/products/{id}")
     public Product getProductById(@PathVariable("id") Long id){
-        return null;
+        Product p = productService.getSingleProduct(id);
+        return p;
     }
 
     public void updateProduct(Long id){
