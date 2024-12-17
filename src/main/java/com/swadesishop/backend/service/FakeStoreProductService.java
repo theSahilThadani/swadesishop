@@ -1,6 +1,7 @@
 package com.swadesishop.backend.service;
 
 import com.swadesishop.backend.dto.FakeStoreProductDto;
+import com.swadesishop.backend.exceptions.ProductNotFoundException;
 import com.swadesishop.backend.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,11 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public Product getSingleProduct(Long id) {
+    public Product getSingleProduct(Long id) throws ProductNotFoundException {
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreProductDto.class);
+        if(fakeStoreProductDto == null){
+            throw new ProductNotFoundException("Product not found check id or enter valid id");
+        }
         return fakeStoreProductDto.getProduct();
     }
 
